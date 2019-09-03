@@ -15,7 +15,7 @@ class Solution {
             {
                 max = s.substring(i-max.length(),i+1);
             }
-            if(i-max.length()-1 >= 0)
+            else if(i-max.length()-1 >= 0)
             {
                // System.out.println("CHECK2:"+s.substring(i-max.length()-1,i+1));
                 if(isPalindrome(s.substring(i-max.length()-1,i+1)))

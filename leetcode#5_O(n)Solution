@@ -1,0 +1,39 @@
+class Solution {
+    public String longestPalindrome(String s) {
+        
+        if(s.length()<2)
+            return s;
+        
+        String max = s.substring(0,1);
+        
+        for(int i=1; i<s.length(); i++)
+        {
+//             System.out.println("MAX:"+max);
+//             System.out.println("CHECK1:"+s.substring(i-max.length(),i+1));
+            
+            if(isPalindrome(s.substring(i-max.length(),i+1)))
+            {
+                max = s.substring(i-max.length(),i+1);
+            }
+            if(i-max.length()-1 >= 0)
+            {
+               // System.out.println("CHECK2:"+s.substring(i-max.length()-1,i+1));
+                if(isPalindrome(s.substring(i-max.length()-1,i+1)))
+                    max = s.substring(i-max.length()-1,i+1);
+            }
+            
+           // System.out.println("====================");
+        }
+        
+        return max;
+    }
+    
+    public boolean isPalindrome(String s) 
+    {
+        StringBuilder sb = new StringBuilder(s);
+        if((sb.reverse().toString()).equals(s))
+            return true;
+        else
+            return false;
+    }
+}

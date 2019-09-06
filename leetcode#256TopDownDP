@@ -1,0 +1,23 @@
+class Solution {
+    
+    public int minCost(int[][] costs) {
+        
+        if(costs.length == 0 )
+        return 0;
+        return leastCostSearch(costs);
+    }
+    
+    private int leastCostSearch(int[][] costs) //0->red, 1->Blue, 2->Green
+    {
+       for(int i=1;i<costs.length;i++)
+       {
+         costs[i][0] = Math.min(costs[i-1][1], costs[i-1][2]) + costs[i][0];
+         costs[i][1] = Math.min(costs[i-1][2], costs[i-1][0]) + costs[i][1];
+         costs[i][2] = Math.min(costs[i-1][0], costs[i-1][1]) + costs[i][2];
+       }
+        
+        int index = costs.length -1;
+        return Math.min(Math.min(costs[index][0],costs[index][2]), Math.min(costs[index]                                  [0],costs[index][1]));
+    } 
+    
+}

@@ -1,0 +1,34 @@
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        
+        
+        int currmax = 0;
+        for(int i = 0; i< s.length(); i++)
+        {
+            if(isUniqueCharSubstring(s,i-currmax,i))
+            {
+                currmax ++;
+            }
+        }
+        return currmax;
+    }
+    
+    public boolean isUniqueCharSubstring(String s, int startindex, int endindex)
+    {
+        boolean[] charArray = new boolean[150];
+        
+        for(int i = startindex; i<=endindex; i++)
+        {
+            if(charArray[(int)s.charAt(i)])
+            {
+                return false;
+            }
+            else
+            {
+                charArray[(int)s.charAt(i)] = true;
+            }
+        }
+        return true;
+    }
+        
+}

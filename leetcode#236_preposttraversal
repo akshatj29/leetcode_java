@@ -1,0 +1,115 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    
+    TreeNode pre = new TreeNode(1);
+    TreeNode post = new TreeNode(1);
+    List<TreeNode> pre1 = new LinkedList<>();
+    List<TreeNode> post1 = new LinkedList<>();
+    
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        
+        preOrder(root);
+        postOrder(root);
+        TreeNode prehead = pre.next;
+        TreeNode posthead = post.next;
+        pre = prehead;
+        post = posthead;
+        
+        while(pre!=null){
+        System.out.print("->"+pre.val);
+        pre=pre.next;
+        }
+        
+        while(post!=null){
+        System.out.print("->"+post.val);
+        post=post.next;
+        }
+        
+        while(pre!=null)
+        {
+            if(pre == p || pre == q)
+            {
+                pre.next = null;
+            }
+        }
+        
+        System.out.println();
+        
+        while(pre!=null){
+        System.out.print("->"+pre.val);
+        pre=pre.next;
+        }
+        
+        boolean pfound = false;
+        boolean qfound = false;
+        
+        while(post != null)
+        {
+            
+            if(post == p)
+            {
+                pfound = true;
+            }
+            if(post == q)
+            {
+                qfound = true;
+            }
+           
+            posthead = post.next;
+            
+        }
+        
+        
+        System.out.println();
+        
+        while(post!=null){
+        System.out.print("->"+post.val);
+        post=post.next;
+        }
+        
+        post = posthead;
+        
+        while(post!=null){
+        
+            while(pre!=null)
+            {
+                if(pre==post)
+                    return pre;
+            }
+        }
+        
+        return null;
+        //3 5 6 2 7 4 1 0 8 . //pre       root left right
+        
+        //6 7 4 2 5 0 8 1 3 . //post .    left right root
+        // 3 5
+        //5 0 8 1 3
+    }
+    
+    public void preOrder(TreeNode root)
+    {
+        if(root == null)
+            return;
+        
+        pre.next(root);
+        preOrder(root.left);
+        preOrder(root.right);
+    }
+    
+    public void postOrder(TreeNode root)
+    {
+        if(root == null)
+            return;
+        postOrder(root.left);
+        postOrder(root.right);
+        post.next(root);
+    }
+}

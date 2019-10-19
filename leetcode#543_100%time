@@ -1,0 +1,24 @@
+class Solution {
+    
+    int maxDia = -1;
+    
+    public int diameterOfBinaryTree(TreeNode root) {
+        if(root == null)
+            return 0;
+        int x = dia(root,0);
+        return maxDia;
+    }
+    
+     public int dia(TreeNode root, int depth) {
+        
+        if(root == null)
+            return depth-1;
+        
+        int left = dia(root.left, depth+1);
+        int right = dia(root.right, depth +1);
+        int diameter = (left-depth) + (right-depth);
+        maxDia = Math.max(maxDia, diameter);
+        return Math.max(left,right);
+    }
+    
+}

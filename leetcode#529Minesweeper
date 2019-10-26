@@ -1,0 +1,50 @@
+class Solution {
+    public char[][] updateBoard(char[][] board, int[] click) {
+       
+        if(!isValid(board, click[0], click[1]))
+            return board;
+        
+        int X = click[0];
+        int Y = click[1];
+        if(board[X][Y] == 'M')
+        {
+            board[X][Y]= 'X';
+            return board;
+        }
+         else if(board[X][Y] == 'B')
+        {
+            return board;
+        }
+        else if(board[X][Y]=='E')   //this is blank
+        {
+            int[][] arr = new int[][]{{-1,-1},{-1,0},{-1,+1},{0,-1},{0,+1},{1,-1},{1,0},{1,1}};
+            int c=0;
+            for(int i=0;i<=7;i++)
+            {
+                if(isValid(board, X+arr[i][0], Y+arr[i][1]) && board[X+arr[i][0]][Y+arr[i][1]] == 'M')
+                    c++;
+            }
+            if(c==0){
+            for(int i=0;i<=7;i++)
+            {
+              board[X][Y]='B';  
+              board = updateBoard(board, new int[]{X+arr[i][0],Y+arr[i][1]});
+            }
+            }
+            else
+            {
+                board[X][Y]=(char)(c + '0');
+            }
+            
+        }
+        return board;
+    }
+    
+   public boolean isValid(char[][] board, int X, int Y)
+   {
+       if(X<0 || Y<0 || X>board.length-1 || Y> board[0].length-1)
+           return false;
+       return true;
+   }
+       
+}
